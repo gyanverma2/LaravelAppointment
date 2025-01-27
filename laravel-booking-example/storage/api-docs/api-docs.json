@@ -319,6 +319,84 @@
                         "format": "float",
                         "example": -122.4194
                     },
+                    "virtual_meeting_link": {
+                        "type": "string",
+                        "example": "https://example.com/meeting"
+                    },
+                    "language": {
+                        "type": "string",
+                        "example": "en"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "pending"
+                    },
+                    "confirmation_token": {
+                        "type": "string",
+                        "example": "abc123"
+                    },
+                    "is_rescheduled": {
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "cancellation_reason": {
+                        "type": "string",
+                        "example": "Client request"
+                    },
+                    "price": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 100
+                    },
+                    "currency": {
+                        "type": "string",
+                        "example": "USD"
+                    },
+                    "payment_status": {
+                        "type": "string",
+                        "example": "paid"
+                    },
+                    "transaction_id": {
+                        "type": "string",
+                        "example": "txn_123456"
+                    },
+                    "created_by": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "updated_by": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "ip_address": {
+                        "type": "string",
+                        "example": "192.168.1.1"
+                    },
+                    "device_info": {
+                        "type": "string",
+                        "example": "Mozilla/5.0"
+                    },
+                    "recurring_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "follow_up_required": {
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "follow_up_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2023-10-15"
+                    },
+                    "consent_provided": {
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "country": {
+                        "type": "string",
+                        "example": "USA"
+                    },
                     "created_at": {
                         "type": "string",
                         "format": "date-time",

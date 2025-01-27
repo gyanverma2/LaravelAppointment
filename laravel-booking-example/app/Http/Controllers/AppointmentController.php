@@ -6,6 +6,8 @@ use App\Models\Appointment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class AppointmentController extends Controller
 {
@@ -61,10 +63,10 @@ class AppointmentController extends Controller
      */
     public function book(Request $request)
     {
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'service_id' => 'required|integer',
             'health_professional_id' => 'required|integer',
-            'date' => 'required|date',
+            'date' => 'required|date|after_or_equal:today',
             'time' => 'required|date_format:H:i:s',
             'time_zone' => 'required|string',
             'email' => 'required|email',
@@ -85,6 +87,18 @@ class AppointmentController extends Controller
             'consent_provided' => 'nullable|boolean',
         ]);
 
+        $validator->after(function ($validator) use ($request) {
+            $dateTime = Carbon::createFromFormat('Y-m-d H:i:s', $request->date . ' ' . $request->time, $request->time_zone);
+            if ($dateTime->isPast()) {
+                $validator->errors()->add('date', 'The appointment date and time must be in the future.');
+            }
+        });
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $validated = $validator->validated();
         // Default values if not provided
         $validated['location_type'] = $validated['location_type'] ?? 'online';
         $validated['language'] = $validated['language'] ?? 'en';
