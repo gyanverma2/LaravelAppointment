@@ -56,8 +56,8 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-<img src="images/swagger.png" alt="Swagger Screenshot" width="200" height="200">
-<video src="https://github.com/gyanverma2/LaravelAppointment/images/DemoVideo.mp4" width="300" height="300" ></video>
+<img src="images/swagger.png" alt="Swagger Screenshot" width="300" height="300" />
+<img src="images/demo.gif" alt="Demo" width="400" height="400"/>
 
 
 This is a sample booking application demostrating the use of Laravel REST API.
