@@ -1,0 +1,343 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel Appointment Booking API",
+        "description": "A simple Laravel API for booking appointments",
+        "version": "0.1"
+    },
+    "servers": [
+        {
+            "url": "/api"
+        }
+    ],
+    "paths": {
+        "/appointments": {
+            "get": {
+                "tags": [
+                    "Appointments"
+                ],
+                "summary": "Get all appointments",
+                "operationId": "a2a911b829c851182fa4c766e8743aeb",
+                "responses": {
+                    "200": {
+                        "description": "List of all appointments",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Appointment"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Appointments"
+                ],
+                "summary": "Book an appointment",
+                "operationId": "f10ec451783c61bbd39ae21c3eee52dd",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "service_id",
+                                    "health_professional_id",
+                                    "date",
+                                    "time",
+                                    "time_zone",
+                                    "email"
+                                ],
+                                "properties": {
+                                    "service_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "health_professional_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2023-10-01"
+                                    },
+                                    "time": {
+                                        "type": "string",
+                                        "format": "time",
+                                        "example": "14:00:00"
+                                    },
+                                    "time_zone": {
+                                        "type": "string",
+                                        "example": "UTC"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user@example.com"
+                                    },
+                                    "location_type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "online",
+                                            "in-person"
+                                        ],
+                                        "example": "online"
+                                    },
+                                    "location_address": {
+                                        "type": "string",
+                                        "example": "123 Main St"
+                                    },
+                                    "latitude": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 37.7749
+                                    },
+                                    "longitude": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": -122.4194
+                                    },
+                                    "virtual_meeting_link": {
+                                        "type": "string",
+                                        "format": "url",
+                                        "example": "https://example.com/meeting"
+                                    },
+                                    "language": {
+                                        "type": "string",
+                                        "example": "en"
+                                    },
+                                    "contact_phone": {
+                                        "type": "string",
+                                        "example": "+1234567890"
+                                    },
+                                    "additional_notes": {
+                                        "type": "string",
+                                        "example": "Please be on time."
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 100
+                                    },
+                                    "currency": {
+                                        "type": "string",
+                                        "example": "USD"
+                                    },
+                                    "payment_status": {
+                                        "type": "string",
+                                        "enum": [
+                                            "unpaid",
+                                            "paid"
+                                        ],
+                                        "example": "unpaid"
+                                    },
+                                    "transaction_id": {
+                                        "type": "string",
+                                        "example": "txn_1234567890"
+                                    },
+                                    "follow_up_required": {
+                                        "type": "boolean",
+                                        "example": true
+                                    },
+                                    "follow_up_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2023-10-15"
+                                    },
+                                    "consent_provided": {
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Appointment booked successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Appointment booked successfully!"
+                                        },
+                                        "appointment": {
+                                            "$ref": "#/components/schemas/Appointment"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/appointments/{id}": {
+            "get": {
+                "tags": [
+                    "Appointments"
+                ],
+                "summary": "Get one appointment",
+                "operationId": "c6a21b8d411ac1de54edf0b70d8959fd",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the appointment",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Appointment found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Appointment"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Appointment not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Appointment not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Appointment": {
+                "title": "Appointment",
+                "required": [
+                    "id",
+                    "service_id",
+                    "health_professional_id",
+                    "date",
+                    "time",
+                    "time_zone",
+                    "email",
+                    "location_type"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "service_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "health_professional_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2023-10-01"
+                    },
+                    "time": {
+                        "type": "string",
+                        "format": "time",
+                        "example": "14:00:00"
+                    },
+                    "time_zone": {
+                        "type": "string",
+                        "example": "UTC"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "user@example.com"
+                    },
+                    "location_type": {
+                        "type": "string",
+                        "enum": [
+                            "online",
+                            "in-person"
+                        ],
+                        "example": "online"
+                    },
+                    "location_address": {
+                        "type": "string",
+                        "example": "123 Main St"
+                    },
+                    "latitude": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 37.7749
+                    },
+                    "longitude": {
+                        "type": "number",
+                        "format": "float",
+                        "example": -122.4194
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-09-01T12:34:56Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-09-01T12:34:56Z"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Appointments",
+            "description": "Appointments"
+        }
+    ]
+}
